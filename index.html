@@ -316,7 +316,8 @@
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    // ننتظر تحميل DOM بالكامل قبل ربط الأحداث
+    document.addEventListener("DOMContentLoaded", function() {
       const citiesData = {
         makkah: {
           title: "🕋 مكة المكرمة",
@@ -396,12 +397,12 @@
         screens[screenName].classList.add("active");
       }
 
-      startBtn.addEventListener("click", () => {
+      startBtn.addEventListener("click", function() {
         showScreen("select");
       });
 
-      cityButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
+      cityButtons.forEach(function(btn) {
+        btn.addEventListener("click", function() {
           currentCity = btn.dataset.city;
           currentQuestionIndex = 0;
           score = 0;
@@ -455,9 +456,9 @@
         const question = city.quiz[currentQuestionIndex];
         quizContainer.innerHTML = `
           <h3>${question.question}</h3>
-          ${question.options.map((option, index) => `
-            <button onclick="checkAnswer(${index})">${option}</button>
-          `).join('')}
+          ${question.options.map(function(option, index) {
+            return `<button onclick="checkAnswer(${index})">${option}</button>`;
+          }).join('')}
         `;
       }
 
@@ -466,7 +467,9 @@
         const question = city.quiz[currentQuestionIndex];
         const buttons = quizContainer.querySelectorAll('button');
 
-        buttons.forEach(btn => btn.disabled = true);
+        buttons.forEach(function(btn) {
+          btn.disabled = true;
+        });
 
         if (selectedIndex === question.answer) {
           buttons[selectedIndex].classList.add('correct');
@@ -476,22 +479,22 @@
           buttons[question.answer].classList.add('correct');
         }
 
-        setTimeout(() => {
+        setTimeout(function() {
           currentQuestionIndex++;
           loadQuestion();
         }, 1500);
       };
 
-      backBtn.addEventListener("click", () => {
+      backBtn.addEventListener("click", function() {
         showScreen("select");
       });
 
-      restartBtn.addEventListener("click", () => {
+      restartBtn.addEventListener("click", function() {
         showScreen("home");
       });
 
-      shareBtn.addEventListener("click", () => {
-        alert(`مبروك! حصلت على ${score} من ${citiesData[currentCity].quiz.length} نقطة! شارك نتيجتك مع أصدقائك.`);
+      shareBtn.addEventListener("click", function() {
+        alert("مبروك! حصلت على " + score + " من " + citiesData[currentCity].quiz.length + " نقطة! شارك نتيجتك مع أصدقائك.");
       });
     });
   </script>
