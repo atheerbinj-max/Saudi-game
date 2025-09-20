@@ -699,6 +699,21 @@
     shareBtn.addEventListener("click", () => {
       alert(`مبروك! حصلت على ${score} من ${Object.values(citiesData)[0].quiz.length * Object.keys(citiesData).length} نقطة! شارك نتيجتك مع أصدقائك.`);
     });
+document.addEventListener("DOMContentLoaded", () => {
+  const startBtn = document.getElementById("start-btn");
+  const screens = {
+    home: document.getElementById("screen-home"),
+    select: document.getElementById("screen-select"),
+    city: document.getElementById("screen-city"),
+    end: document.getElementById("screen-end"),
+  };
+
+  startBtn.addEventListener("click", () => {
+    Object.values(screens).forEach(s => s.classList.remove("active"));
+    screens.select.classList.add("active");
+  });
+});
+
   </script>
 </body>
 </html>
